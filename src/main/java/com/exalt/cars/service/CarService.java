@@ -16,4 +16,10 @@ public interface CarService {
 
     //rent car based on car number (unique) and then set customer name
     public String rentCar(String number, String customerName);
+
+    //add new car
+    public Car addCar(Car car);
+
+    //delete car by number
+    public String deleteCar(String number);
 }

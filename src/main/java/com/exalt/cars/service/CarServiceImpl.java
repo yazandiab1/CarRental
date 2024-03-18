@@ -46,4 +46,18 @@ public class CarServiceImpl implements CarService{
 
     }
 
+    public Car addCar(Car car) {
+        return carRepository.save(car);
+    }
+
+    public String deleteCar(String number) {
+        Optional<Car> carOptional = carRepository.findByNumber(number);
+        if (carOptional.isPresent()) {
+            carRepository.delete(carOptional.get());
+            return "The car has been deleted";
+        } else  {
+            return "The car does not exists";
+        }
+    }
+
 }

@@ -17,6 +17,10 @@ public class CarServiceImpl implements CarService{
         this.carRepository = carRepository;
     }
 
+    public Car getCar(String number) {
+        return carRepository.findByNumber(number).get();
+    }
+
     public List<Car> getAllCars() {
         return carRepository.findAll();
     }
@@ -45,6 +49,7 @@ public class CarServiceImpl implements CarService{
         }
 
     }
+
 
     public Car addCar(Car car) {
         return carRepository.save(car);

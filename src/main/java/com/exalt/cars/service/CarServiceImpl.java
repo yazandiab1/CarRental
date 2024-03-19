@@ -1,6 +1,9 @@
 package com.exalt.cars.service;
 
 import com.exalt.cars.domain.Car;
+import com.exalt.cars.dto.CarMapper;
+import com.exalt.cars.exception.CarNotAvailableException;
+import com.exalt.cars.exception.CarNotFoundException;
 import com.exalt.cars.repository.CarRepository;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +14,12 @@ import java.util.stream.Collectors;
 @Service
 public class CarServiceImpl implements CarService{
 
-    CarRepository carRepository;
+    private final CarRepository carRepository;
+    public CarMapper carMapper;
 
-    public CarServiceImpl(CarRepository carRepository) {
+    public CarServiceImpl(CarRepository carRepository, CarMapper carMapper) {
         this.carRepository = carRepository;
+        this.carMapper = carMapper;
     }
 
     public Car getCar(String number) {
@@ -32,7 +37,7 @@ public class CarServiceImpl implements CarService{
                 .collect(Collectors.toList());
     }
 
-    public String rentCar(String number, String customerName){
+    public void rentCar(String number, String customerName){
         Optional<Car> optionalCar = carRepository.findByNumber(number);
 
         if ( optionalCar.isPresent() ) {
@@ -40,12 +45,11 @@ public class CarServiceImpl implements CarService{
             if ( car.isAvailable() ) {
                 car.setCustomerName(customerName);
                 carRepository.save(car);
-                return "The car has been successfully rented";
             } else {
-                return "Car is not available for rent.";
+                throw new CarNotAvailableException("Car is not available for rent.");
             }
         } else {
-            return "Car not found for Number: " + number;
+            throw new CarNotFoundException("Car not found for Number: " + number);
         }
 
     }
@@ -55,14 +59,14 @@ public class CarServiceImpl implements CarService{
         return carRepository.save(car);
     }
 
-    public String deleteCar(String number) {
+    public void deleteCar(String number) {
         Optional<Car> carOptional = carRepository.findByNumber(number);
         if (carOptional.isPresent()) {
             carRepository.delete(carOptional.get());
-            return "The car has been deleted";
-        } else  {
-            return "The car does not exists";
+            return;
         }
+
+        throw new CarNotFoundException("Car not found for Number: " + number);
     }
 
 }

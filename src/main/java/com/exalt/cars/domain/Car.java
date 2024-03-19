@@ -16,13 +16,17 @@ public class Car {
     private Long id;
 
     @NonNull
+    @NotBlank(message = "Number is required")
+    @Size(min = 3, max = 10, message = "Number must be between 3 and 10 characters")
     @Column(unique = true)
     private String number;
 
     @NonNull
+    @NotBlank(message = "Type is required")
     private String type;
 
     @NonNull
+    @NotBlank(message = "Model is required")
     private String model;
 
     private String customerName;

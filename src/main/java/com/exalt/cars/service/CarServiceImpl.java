@@ -5,6 +5,7 @@ import com.exalt.cars.dto.CarMapper;
 import com.exalt.cars.exception.CarNotAvailableException;
 import com.exalt.cars.exception.CarNotFoundException;
 import com.exalt.cars.repository.CarRepository;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -55,7 +56,7 @@ public class CarServiceImpl implements CarService{
     }
 
 
-    public Car addCar(Car car) {
+    public Car addCar(@Valid Car car) {
         return carRepository.save(car);
     }
 

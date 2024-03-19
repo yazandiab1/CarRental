@@ -2,6 +2,7 @@ package com.exalt.cars.service;
 
 import com.exalt.cars.domain.Car;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

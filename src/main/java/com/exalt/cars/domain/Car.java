@@ -30,6 +30,10 @@ public class Car {
     private String model;
 
     private String customerName;
+
+    @Version
+    private Integer version;
+
     @Transient
     public boolean isAvailable() { // check if this car is available or not based on customer name property
         return customerName == null;

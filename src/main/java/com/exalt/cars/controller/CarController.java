@@ -38,19 +38,12 @@ public class CarController {
 
         //convert CarDto to Car entity
         Car car = carService.carMapper.dtoToEntity(carDto);
-//        car.setType(carDto.getType());
-//        car.setNumber(carDto.getNumber());
-//        car.setModel(carDto.getModel());
 
         //save car
         Car savedCar = carService.addCar(car);
 
         //convert Car entity to CarDto
         CarDto carResponse = carService.carMapper.entityToDto(savedCar);
-//        carResponse.setId(savedCar.getId());
-//        carResponse.setModel(savedCar.getModel());
-//        carResponse.setNumber(savedCar.getNumber());
-//        carResponse.setType(savedCar.getType());
 
         return new ResponseEntity<>(carResponse, HttpStatus.CREATED);
     }

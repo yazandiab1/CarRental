@@ -7,6 +7,7 @@ import com.exalt.cars.exception.CarNotFoundException;
 import com.exalt.cars.repository.CarRepository;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -38,6 +39,7 @@ public class CarServiceImpl implements CarService{
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public void rentCar(String number, String customerName){
         Optional<Car> optionalCar = carRepository.findByNumber(number);
 

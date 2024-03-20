@@ -22,9 +22,11 @@ import java.util.List;
 public class CarController {
 
     private CarServiceImpl carService;
+    public CarMapper carMapper;
 
     @Autowired
-    public CarController(CarServiceImpl carService) {
+    public CarController(CarServiceImpl carService, CarMapper carMapper) {
+        this.carMapper = carMapper;
         this.carService = carService;
     }
 
@@ -37,13 +39,13 @@ public class CarController {
     public ResponseEntity<CarDto> addCar(@Valid @RequestBody CarDto carDto) {
 
         //convert CarDto to Car entity
-        Car car = carService.carMapper.dtoToEntity(carDto);
+        Car car = carMapper.dtoToEntity(carDto);
 
         //save car
         Car savedCar = carService.addCar(car);
 
         //convert Car entity to CarDto
-        CarDto carResponse = carService.carMapper.entityToDto(savedCar);
+        CarDto carResponse = carMapper.entityToDto(savedCar);
 
         return new ResponseEntity<>(carResponse, HttpStatus.CREATED);
     }

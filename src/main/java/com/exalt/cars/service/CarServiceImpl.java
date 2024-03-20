@@ -6,6 +6,7 @@ import com.exalt.cars.exception.CarNotAvailableException;
 import com.exalt.cars.exception.CarNotFoundException;
 import com.exalt.cars.repository.CarRepository;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,11 +18,10 @@ import java.util.stream.Collectors;
 public class CarServiceImpl implements CarService{
 
     private final CarRepository carRepository;
-    public CarMapper carMapper;
 
-    public CarServiceImpl(CarRepository carRepository, CarMapper carMapper) {
+    @Autowired
+    public CarServiceImpl(CarRepository carRepository ) {
         this.carRepository = carRepository;
-        this.carMapper = carMapper;
     }
 
     public Car getCar(String number) {

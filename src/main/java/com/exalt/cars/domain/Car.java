@@ -29,13 +29,16 @@ public class Car {
     @NotBlank(message = "Model is required")
     private String model;
 
-    private String customerName;
 
     @Version
     private Integer version;
 
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
     @Transient
     public boolean isAvailable() { // check if this car is available or not based on customer name property
-        return customerName == null;
+        return customer == null;
     }
 }

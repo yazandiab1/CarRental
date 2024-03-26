@@ -35,7 +35,7 @@ public class CarServiceImpl implements CarService{
     public List<Car> getAvailableCars() {
         List<Car> allCars = carRepository.findAll();
         return allCars.stream()
-                .filter(car -> car.getCustomerName() == null || car.getCustomerName().isEmpty())
+                .filter(car -> car.getCustomer().getName() == null || car.getCustomer().getName().isEmpty())
                 .collect(Collectors.toList());
     }
 
@@ -46,7 +46,7 @@ public class CarServiceImpl implements CarService{
         if ( optionalCar.isPresent() ) {
             Car car = optionalCar.get();
             if ( car.isAvailable() ) {
-                car.setCustomerName(customerName);
+//                car.setCustomerName(customerName);
                 carRepository.save(car);
             } else {
                 throw new CarNotAvailableException("Car is not available for rent.");

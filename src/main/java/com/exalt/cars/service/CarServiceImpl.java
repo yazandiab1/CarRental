@@ -1,12 +1,15 @@
 package com.exalt.cars.service;
 
 import com.exalt.cars.domain.Car;
+import com.exalt.cars.domain.Customer;
 import com.exalt.cars.dto.CarMapper;
 import com.exalt.cars.exception.CarNotAvailableException;
 import com.exalt.cars.exception.CarNotFoundException;
 import com.exalt.cars.repository.CarRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,13 +43,18 @@ public class CarServiceImpl implements CarService{
     }
 
     @Transactional
-    public void rentCar(String number, String customerName){
+    public void rentCar(String number){
+        // Get currently authenticated customer's name
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Customer customer = (Customer) authentication.getPrincipal(); // Assuming Customer is the principal
+
+
         Optional<Car> optionalCar = carRepository.findByNumber(number);
 
         if ( optionalCar.isPresent() ) {
             Car car = optionalCar.get();
             if ( car.isAvailable() ) {
-//                car.setCustomerName(customerName);
+                car.setCustomer(customer);
                 carRepository.save(car);
             } else {
                 throw new CarNotAvailableException("Car is not available for rent.");

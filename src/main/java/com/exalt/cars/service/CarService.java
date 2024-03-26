@@ -18,7 +18,7 @@ public interface CarService {
     public List<Car> getAvailableCars();
 
     //rent car based on car number (unique) and then set customer name
-    public void rentCar(String number, String customerName);
+    public void rentCar(String number);
 
     //add new car
     public Car addCar(Car car);

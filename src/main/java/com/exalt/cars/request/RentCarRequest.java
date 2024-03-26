@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class RentCarRequest {
     private String number;
-    private String customerName;
+//    private String customerName;
 }

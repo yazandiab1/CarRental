@@ -20,15 +20,14 @@ public class CarsLoader implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-//        Car skoda = new Car("111","skoda","2019");
-////        skoda.setCustomerName("yazan");
-//        carRepository.save(skoda);
-//
-//        Car bmw = new Car("222","BMW","2022");
-//        carRepository.save(bmw);
-//
-//        Car kia = new Car("333","KIA","2020");
-//        carRepository.save(kia);
+        Car skoda = new Car("111","skoda","2019");
+        carRepository.save(skoda);
+
+        Car bmw = new Car("222","BMW","2022");
+        carRepository.save(bmw);
+
+        Car kia = new Car("333","KIA","2020");
+        carRepository.save(kia);
 
     }
 }

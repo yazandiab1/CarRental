@@ -68,7 +68,7 @@ public class CarController {
 
     @PostMapping("/rent")
     public ResponseEntity<String> rentCar(@RequestBody RentCarRequest rentCarRequest) {
-        carService.rentCar(rentCarRequest.getNumber(),rentCarRequest.getCustomerName());
+        carService.rentCar(rentCarRequest.getNumber());
         return ResponseEntity.ok("The car has been successfully rented");
     }
 

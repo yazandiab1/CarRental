@@ -1,6 +1,7 @@
 package com.exalt.cars.controller;
 
 import com.exalt.cars.dto.CustomerDto;
+import com.exalt.cars.request.AuthenticationRequest;
 import com.exalt.cars.request.AuthenticationResponse;
 import com.exalt.cars.service.AuthenticationService;
 import jakarta.validation.Valid;
@@ -17,11 +18,19 @@ import org.springframework.web.bind.annotation.RestController;
 public class CustomerController {
     private final AuthenticationService service;
 
-
-    @PostMapping
+    @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
             @RequestBody @Valid CustomerDto customerDto
-            ) {
+    ) {
         return ResponseEntity.ok(service.register(customerDto));
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<AuthenticationResponse> login(
+            @RequestBody AuthenticationRequest request
+            ) {
+        return ResponseEntity.ok(service.authenticate(request));
+    }
+
+
 }

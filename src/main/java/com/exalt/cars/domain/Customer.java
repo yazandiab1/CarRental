@@ -11,11 +11,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-@Entity
-@RequiredArgsConstructor
-@NoArgsConstructor
+@Builder
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
 public class Customer implements UserDetails {
     @Id
     @GeneratedValue()
@@ -36,6 +37,8 @@ public class Customer implements UserDetails {
     private String password;
 
     @NonNull
+    @NotBlank(message = "Phone Number is required")
+    @Size(min = 10, message = "Phone Number must be at least 10 characters")
     private String phoneNumber;
 
     @OneToMany(mappedBy = "customer")
